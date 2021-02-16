@@ -1,20 +1,10 @@
 "use strict";
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var _require = require('@codeceptjs/configure'),
-    setHeadlessWhen = _require.setHeadlessWhen; // turn on headless mode when running with HEADLESS=true environment variable
-// HEADLESS=true npx codecept run
-
-
-setHeadlessWhen(process.env.HEADLESS);
 exports.config = {
-  tests: './*_test.js',
-  //./tests./*_test.js
   output: './output',
   helpers: {
     Puppeteer: {
-      url: 'https://staging.appsero.com',
+      url: 'http://dokan-pro.test',
       show: true,
       windowSize: '1400x900',
       smartWait: 7000,
@@ -26,23 +16,29 @@ exports.config = {
     }
   },
   include: {
-    I: './steps_file.js'
+    I: './steps_file.js',
+    product: './pages/product.js',
+    helpers: './pages/helpers.js',
+    register_locator: './pages/register_locator.js'
+  },
+  mocha: {
+    reporterOptions: {
+      mochaFile: 'output/result.xml'
+    }
   },
   bootstrap: null,
-  mocha: _defineProperty({
-    reporterOptions: {
-      reportDir: 'output'
-    }
-  }, "reporterOptions", {
-    mochaFile: 'output/result.xml'
-  }),
-  name: 'codecept_puppetiers',
+  teardown: null,
+  hooks: [],
+  gherkin: {
+    features: './features/*.feature',
+    steps: ['./step_definitions/steps.js']
+  },
   plugins: {
-    retryFailedStep: {
-      enabled: true
-    },
     screenshotOnFail: {
       enabled: false
+    },
+    retryFailedStep: {
+      enabled: true
     },
     multiple: {
       grep: '@accounts'
@@ -50,5 +46,7 @@ exports.config = {
     allure: {
       enabled: 'true'
     }
-  }
+  },
+  tests: './*_test.js',
+  name: 'codecept_puppetiers'
 };

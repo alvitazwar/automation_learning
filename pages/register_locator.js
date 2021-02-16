@@ -18,6 +18,26 @@ module.exports = {
     MenuHoverDropdown: '.nav.navbar-nav.nav .dokani-menu-user.dropdown-toggle',
     MyAccount: 'li:nth-of-type(3) > .dropdown-menu > li:nth-of-type(2) > a',
     EditAccount: 'li.woocommerce-MyAccount-navigation-link.woocommerce-MyAccount-navigation-link--edit-account > a',
+    // BDD LOCATORS 
+    VendorBalance: '//article[@class="dokan-withdraw-area"]/div/div[1]/strong/span[1]',
+    //Purchase Checkout Page
+    BillingFirstName: '#billing_first_name',
+    BillingLastName: '#billing_last_name',
+    BillingCompanyName: '#billing_company',
+    BillingAddress: '#billing_address_1',
+    BillingCity: '#billing_city',
+    BillingPhone: '#billing_phone',
+    BillingEmail: '#billing_email',
+    PlaceOrderBtn: 'woocommerce_checkout_place_order',
+    OrderSuccessMsg: 'Thank you. Your order has been received.',
+    // Order Page Locators
+    FirstOrderRow: 'tr:nth-child(1) strong',
+    EditStatusLink: '.dokan-edit-status',
+    GeneralDetails: '.dokan - panel - body.general - details',
+    CurrentEarning: '.dokan-order-earning > .amount.woocommerce-Price-amount',
+    VendorMoveCursor: 'div.dokani-user-menu > ul > li:nth-child(3) > a',
+    VendorLogout: 'div.dokani-user-menu > ul > li:nth-child(3) > ul > li:nth-child(7) > a',
+    CustomerMoveCursor: 'div.dokani-user-menu > ul > li.dropdown > a',
 
 
 

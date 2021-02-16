@@ -13,8 +13,11 @@ Feature: Registration Process
     When I go to checkout process
     Then my order amount is $200 and it is final amount
 
-# @purchase_calculation
-#   Scenario: Purchase calculation with admin
-#     Given I
+  @purchase_calculation
+  Scenario: Purchase calculation with admin
+    Given Vendor balance existing balance will be checked
+    When Customer purchase a simple product
+    Then Vendor approve order status to comeplete
+    And Vendor balance will update with addition of new order earning amount
 
 
