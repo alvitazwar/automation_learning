@@ -7,6 +7,11 @@ var existing_balance;
 var current_earnings;
 var current_balance;
 var actual_balance;
+var admin_existing_balance;
+var admin_current_commission;
+var admin_current_balance;
+var admin_actual_balance;
+
 
 const {
     I
@@ -104,6 +109,9 @@ module.exports = {
         I.say('Calculation matched');
         console.log('Existing Balance', existing_balance, '+', 'Current Earning', current_earnings, '=', 'Actual Balance', existing_balance + current_earnings);
 
+    },
+    async adminBalanceCheck() {
+        // Need to work 
     },
     vendorlogout() {
         I.moveCursorTo(locator.VendorMoveCursor);

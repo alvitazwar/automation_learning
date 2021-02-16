@@ -33,7 +33,7 @@ Then(/my order amount is \$(\d+) and it is final amount/, (total) => {
 });
 
 //Purchase Calculation Business Scenario
-Given('Vendor balance existing balance will be checked', () => {
+Given('Existing balance of Vendor and Admin will be checked', () => {
     I.loginAsVendor();
     helpers.checkExistingBalance();
     helpers.vendorlogout();
@@ -47,11 +47,16 @@ When('Customer purchase a simple product', () => {
     helpers.placeOrder();
     helpers.customerlogout();
 });
+Then('Admin balance and commission will be checkedgit', () => {
+    I.loginAsVendor();
+    //Change Order Status
+    helpers.updateOrderStatus();
+});
+
 Then('Vendor approve order status to comeplete', () => {
     I.loginAsVendor();
     //Change Order Status
     helpers.updateOrderStatus();
-
 });
 Then('Vendor balance will update with addition of new order earning amount', async() => {
     await helpers.grabCurrentEarnings();

@@ -17,6 +17,10 @@ var existing_balance;
 var current_earnings;
 var current_balance;
 var actual_balance;
+var admin_existing_balance;
+var admin_current_commission;
+var admin_current_balance;
+var admin_actual_balance;
 
 var _inject = inject(),
     I = _inject.I;
@@ -153,6 +157,17 @@ module.exports = {
           case 10:
           case "end":
             return _context3.stop();
+        }
+      }
+    });
+  },
+  adminBalanceCheck: function adminBalanceCheck() {
+    return regeneratorRuntime.async(function adminBalanceCheck$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+          case "end":
+            return _context4.stop();
         }
       }
     });

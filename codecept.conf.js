@@ -3,7 +3,7 @@ exports.config = {
     helpers: {
         Puppeteer: {
             url: 'http://dokan-pro.test',
-            show: true,
+            show: false,
             windowSize: '1400x900',
             smartWait: 7000,
             waitForAction: 3000,
