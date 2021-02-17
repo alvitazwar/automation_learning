@@ -26,6 +26,8 @@ module.exports = {
   // BDD LOCATORS 
   VendorBalance: '//article[@class="dokan-withdraw-area"]/div/div[1]/strong/span[1]',
   //Purchase Checkout Page
+  ViewCart: 'div.woocommerce-notices-wrapper > div > a',
+  ProceedCheckout: 'div.cart-collaterals > div > div > a',
   BillingFirstName: '#billing_first_name',
   BillingLastName: '#billing_last_name',
   BillingCompanyName: '#billing_company',
@@ -42,5 +44,10 @@ module.exports = {
   CurrentEarning: '.dokan-order-earning > .amount.woocommerce-Price-amount',
   VendorMoveCursor: 'div.dokani-user-menu > ul > li:nth-child(3) > a',
   VendorLogout: 'div.dokani-user-menu > ul > li:nth-child(3) > ul > li:nth-child(7) > a',
-  CustomerMoveCursor: 'div.dokani-user-menu > ul > li.dropdown > a'
+  CustomerMoveCursor: 'div.dokani-user-menu > ul > li.dropdown > a',
+  //WP-Admin Page Locators
+  AdminBalance: ' div.inside > div > div > ul > li.commission > a > strong > div',
+  AdminComission: 'tr:nth-child(1) > td.column.commission > div',
+  AdminMoveCursor: '#wp-admin-bar-my-account > a',
+  AdminLogout: '#wp-admin-bar-logout > a'
 };

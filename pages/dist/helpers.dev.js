@@ -83,9 +83,9 @@ module.exports = {
   },
   placeOrder: function placeOrder() {
     I.click('Add to cart');
-    I.click('div.woocommerce-notices-wrapper > div > a'); //View Cart
+    I.click(locator.ViewCart); //View Cart
 
-    I.click('div.cart-collaterals > div > div > a'); // Proceed To checkout
+    I.click(locator.ProceedCheckout); // Proceed To checkout
 
     I.seeInCurrentUrl('/checkout');
     I.fillField(locator.BillingFirstName, locator.FirstName);
@@ -120,7 +120,7 @@ module.exports = {
             I.amOnPage('/dashboard/orders'); //I.click('Orders');
 
             _context2.next = 3;
-            return regeneratorRuntime.awrap(I.grabTextFrom('.dokan-order-earning > .amount.woocommerce-Price-amount'));
+            return regeneratorRuntime.awrap(I.grabTextFrom(locator.CurrentEarning));
 
           case 3:
             earning = _context2.sent;
@@ -162,12 +162,73 @@ module.exports = {
     });
   },
   adminBalanceCheck: function adminBalanceCheck() {
+    var ad_bal;
     return regeneratorRuntime.async(function adminBalanceCheck$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
+            I.amOnPage('/wp-admin/admin.php?page=dokan#/reports');
+            I.scrollTo(locator.AdminBalance);
+            _context4.next = 4;
+            return regeneratorRuntime.awrap(I.grabTextFrom(locator.AdminBalance));
+
+          case 4:
+            ad_bal = _context4.sent;
+            admin_existing_balance = parseInt(ad_bal.replace('৳', "").replace('$', "").trim());
+            console.log('Admin Existing Balance:', admin_existing_balance);
+
+          case 7:
           case "end":
             return _context4.stop();
+        }
+      }
+    });
+  },
+  getAdminComission: function getAdminComission() {
+    var ad_com;
+    return regeneratorRuntime.async(function getAdminComission$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            I.amOnPage('/wp-admin/admin.php?page=dokan#/reports?tab=logs');
+            _context5.next = 3;
+            return regeneratorRuntime.awrap(I.grabTextFrom(locator.AdminComission));
+
+          case 3:
+            ad_com = _context5.sent;
+            admin_current_commission = parseInt(ad_com.replace('৳', "").replace('$', "").trim());
+            console.log('Admin Current Commission:', admin_current_commission);
+
+          case 6:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    });
+  },
+  checkAdminCalculation: function checkAdminCalculation() {
+    var ad_actual_bal;
+    return regeneratorRuntime.async(function checkAdminCalculation$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            I.amOnPage('/wp-admin/admin.php?page=dokan#/reports');
+            I.scrollTo(locator.AdminBalance);
+            admin_current_balance = admin_existing_balance + admin_current_commission;
+            console.log('Admin Current Balance:', admin_current_balance);
+            _context6.next = 6;
+            return regeneratorRuntime.awrap(I.grabTextFrom(locator.AdminBalance));
+
+          case 6:
+            ad_actual_bal = _context6.sent;
+            admin_actual_balance = parseInt(ad_actual_bal.replace('৳', "").replace('$', "").trim());
+            strict.equal(admin_current_balance, admin_actual_balance);
+            console.log('Admin Existing Balance', admin_existing_balance, '+', 'Current Comission', admin_current_commission, '=', 'Admin Actual Balance', admin_existing_balance + admin_current_commission);
+            I.say('Calculation matched');
+
+          case 11:
+          case "end":
+            return _context6.stop();
         }
       }
     });
@@ -179,5 +240,10 @@ module.exports = {
   customerlogout: function customerlogout() {
     I.moveCursorTo(locator.CustomerMoveCursor);
     I.click('Log out');
+  },
+  adminlogout: function adminlogout() {
+    I.moveCursorTo(locator.AdminMoveCursor);
+    I.wait(1);
+    I.click(locator.AdminLogout);
   }
 };

@@ -5,7 +5,7 @@ exports.config = {
   helpers: {
     Puppeteer: {
       url: 'http://dokan-pro.test',
-      show: false,
+      show: true,
       windowSize: '1400x900',
       smartWait: 7000,
       waitForAction: 3000,
@@ -31,7 +31,7 @@ exports.config = {
   hooks: [],
   gherkin: {
     features: './features/*.feature',
-    steps: ['./step_definitions/steps.js']
+    steps: ['./step_definitions/steps.js', './step_definitions/reg.js', './step_definitions/simpleProduct.js']
   },
   plugins: {
     screenshotOnFail: {

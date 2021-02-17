@@ -33,47 +33,4 @@ When('I go to checkout process', function () {
 });
 Then(/my order amount is \$(\d+) and it is final amount/, function (total) {
   I.see(total, ' tfoot > tr.order-total > td > strong > span > bdi');
-}); //Purchase Calculation Business Scenario
-
-Given('Existing balance of Vendor and Admin will be checked', function () {
-  I.loginAsVendor();
-  helpers.checkExistingBalance();
-  helpers.vendorlogout();
-});
-When('Customer purchase a simple product', function () {
-  I.loginAsCustomer();
-  I.amOnPage('/shop');
-  I.click('simple_pro_1'); //Place A new Order
-
-  helpers.placeOrder();
-  helpers.customerlogout();
-});
-Then('Admin balance and commission will be checkedgit', function () {
-  I.loginAsVendor(); //Change Order Status
-
-  helpers.updateOrderStatus();
-});
-Then('Vendor approve order status to comeplete', function () {
-  I.loginAsVendor(); //Change Order Status
-
-  helpers.updateOrderStatus();
-});
-Then('Vendor balance will update with addition of new order earning amount', function _callee() {
-  return regeneratorRuntime.async(function _callee$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          _context.next = 2;
-          return regeneratorRuntime.awrap(helpers.grabCurrentEarnings());
-
-        case 2:
-          _context.next = 4;
-          return regeneratorRuntime.awrap(helpers.balanceAssertEqual());
-
-        case 4:
-        case "end":
-          return _context.stop();
-      }
-    }
-  });
 });

@@ -31,35 +31,3 @@ When('I go to checkout process', () => {
 Then(/my order amount is \$(\d+) and it is final amount/, (total) => {
     I.see(total, ' tfoot > tr.order-total > td > strong > span > bdi');
 });
-
-//Purchase Calculation Business Scenario
-Given('Existing balance of Vendor and Admin will be checked', () => {
-    I.loginAsVendor();
-    helpers.checkExistingBalance();
-    helpers.vendorlogout();
-
-});
-When('Customer purchase a simple product', () => {
-    I.loginAsCustomer();
-    I.amOnPage('/shop');
-    I.click('simple_pro_1');
-    //Place A new Order
-    helpers.placeOrder();
-    helpers.customerlogout();
-});
-Then('Admin balance and commission will be checkedgit', () => {
-    I.loginAsVendor();
-    //Change Order Status
-    helpers.updateOrderStatus();
-});
-
-Then('Vendor approve order status to comeplete', () => {
-    I.loginAsVendor();
-    //Change Order Status
-    helpers.updateOrderStatus();
-});
-Then('Vendor balance will update with addition of new order earning amount', async() => {
-    await helpers.grabCurrentEarnings();
-    //start calculation matching
-    await helpers.balanceAssertEqual();
-});

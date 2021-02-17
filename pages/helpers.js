@@ -45,9 +45,6 @@ module.exports = {
         I.click(locator.MyAccount);
         I.click(locator.EditAccount);
         I.seeInField('Email address', locator.EmailAddress);
-
-
-
     },
     loginAsVendor() {
         I.fillField('Username or email address ', 'alvitazwar@wedevs.com');
@@ -63,8 +60,8 @@ module.exports = {
     },
     placeOrder() {
         I.click('Add to cart');
-        I.click('div.woocommerce-notices-wrapper > div > a'); //View Cart
-        I.click('div.cart-collaterals > div > div > a'); // Proceed To checkout
+        I.click(locator.ViewCart); //View Cart
+        I.click(locator.ProceedCheckout); // Proceed To checkout
         I.seeInCurrentUrl('/checkout');
         I.fillField(locator.BillingFirstName, locator.FirstName);
         I.fillField(locator.BillingLastName, locator.Lastname);
@@ -93,7 +90,7 @@ module.exports = {
     async grabCurrentEarnings() {
         I.amOnPage('/dashboard/orders');
         //I.click('Orders');
-        let earning = await I.grabTextFrom('.dokan-order-earning > .amount.woocommerce-Price-amount');
+        let earning = await I.grabTextFrom(locator.CurrentEarning);
         current_earnings = parseInt(earning.replace(/[, ৳]+/g, ""));
         console.log('Current Earning ', current_earnings);
 
@@ -111,7 +108,28 @@ module.exports = {
 
     },
     async adminBalanceCheck() {
-        // Need to work 
+        I.amOnPage('/wp-admin/admin.php?page=dokan#/reports');
+        I.scrollTo(locator.AdminBalance);
+        let ad_bal = await I.grabTextFrom(locator.AdminBalance);
+        admin_existing_balance = parseInt(ad_bal.replace('৳', "").replace('$', "").trim());
+        console.log('Admin Existing Balance:', admin_existing_balance);
+    },
+    async getAdminComission() {
+        I.amOnPage('/wp-admin/admin.php?page=dokan#/reports?tab=logs');
+        let ad_com = await I.grabTextFrom(locator.AdminComission);
+        admin_current_commission = parseInt(ad_com.replace('৳', "").replace('$', "").trim());
+        console.log('Admin Current Commission:', admin_current_commission);
+    },
+    async checkAdminCalculation() {
+        I.amOnPage('/wp-admin/admin.php?page=dokan#/reports');
+        I.scrollTo(locator.AdminBalance);
+        admin_current_balance = admin_existing_balance + admin_current_commission;
+        console.log('Admin Current Balance:', admin_current_balance);
+        let ad_actual_bal = await I.grabTextFrom(locator.AdminBalance);
+        admin_actual_balance = parseInt(ad_actual_bal.replace('৳', "").replace('$', "").trim());
+        strict.equal(admin_current_balance, admin_actual_balance);
+        console.log('Admin Existing Balance', admin_existing_balance, '+', 'Current Comission', admin_current_commission, '=', 'Admin Actual Balance', admin_existing_balance + admin_current_commission);
+        I.say('Calculation matched');
     },
     vendorlogout() {
         I.moveCursorTo(locator.VendorMoveCursor);
@@ -121,4 +139,9 @@ module.exports = {
         I.moveCursorTo(locator.CustomerMoveCursor);
         I.click('Log out');
     },
+    adminlogout() {
+        I.moveCursorTo(locator.AdminMoveCursor);
+        I.wait(1);
+        I.click(locator.AdminLogout);
+    }
 }
